@@ -7,7 +7,7 @@ runs:
 
 inputs:
   github_token:
-    description: "A Github token for the repo, default: github.token".
+    description: "A Github token for the repo, default: github.token"
     required: false
     default: ${{ github.token }}
   repo_path:
