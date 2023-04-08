@@ -1,0 +1,19 @@
+name: Fetch Latest Release Tag
+description: get tag from repository release
+author: inithink
+runs:
+  using: node16
+  main: action.js
+
+inputs:
+  github_token:
+    description: "A Github token for the repo, default: `{{ github.token }}`".
+    required: false
+    default: ${{ github.token }}
+  repo_path:
+    description: "owner/repo"
+    required: false
+
+outputs:
+  tag_name:
+    description: The release's Git tag
