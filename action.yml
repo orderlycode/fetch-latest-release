@@ -3,7 +3,7 @@ description: get tag from repository release
 author: inithink
 runs:
   using: node16
-  main: action.js
+  main: dist/action.js
 
 inputs:
   github_token:

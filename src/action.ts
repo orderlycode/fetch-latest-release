@@ -1,9 +1,8 @@
-const core
-  = require('@actions/core')
-const { GitHub } = require('@actions/github')
-const process = require('process')
+import core from '@actions/core'
+import github from '@actions/github'
+import process from 'process'
 
-const customRepo = (repoPath) => {
+const customRepo = (repoPath: string) => {
   const segments = repoPath.split('/', 2)
   if (segments.length < 2) {
     core.info('Please provide a repository in the format `owner/repo`.')
@@ -15,17 +14,17 @@ const repoInput = core.getInput('repo_path')
 
 const [owner, repo] = repoInput
   ? customRepo(repoInput)
-  : process.env['GITHUB_REPOSITORY'].split('/', 2)
+  : process.env['GITHUB_REPOSITORY']!.split('/', 2)
 
-const github = new GitHub(
-  core.getInput('github_token', { required: true }),
+const octokit = github.getOctokit(
+  core.getInput('github_token', { required: true })
 )
 
 async function run() {
   let latestRelease
   core.info(`Fetching the latest release for \`${owner}/${repo}\``)
   try {
-    latestRelease = await github.repos.getLatestRelease({
+    latestRelease = await octokit.rest.repos.getLatestRelease({
       owner,
       repo,
     })
